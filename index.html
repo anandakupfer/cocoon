@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script>
-function startTime() {
-  var today = new Date();
-  var h = today.getHours();
-  var m = today.getMinutes();
-  var s = today.getSeconds();
-  var d = today.getDate();
-  m = checkTime(m);
-  s = checkTime(s);
-  document.getElementById('txt').innerHTML =
-  h + ":" + m + ":" + s + " " + d;
-  var t = setTimeout(startTime, 4000);
-}
-</script>
 </head>
 
-<body onload="startTime()">
+<body style="background-color: black">
 
-<div id="txt"></div>
-
-<video id="video" muted width="100" height="100" style="position: fixed; left:0; bottom: 0; top: 0; margin:auto">
+<div id="stream" style="display: none">
+<video id="video" width="100" height="100" loop style="position: fixed; left:0; bottom: 0; top: 0; margin:auto">
   <source src="livestream.m4v" type="video/mp4">
 </video>
+</div>
+
+<p id="join" onclick="start()" style="color: #ffcece; text-align: center; font-family: arial; font-size: 72px; font-weight: bold; letter-spacing: -6px; cursor: pointer; display: none; position: fixed; top: 50%; margin-top: -36px; margin-left: 5% auto; margin-right: 5% auto; left: 0; right: 0;">JOIN</p>
+<p id="info" style="color: #ffcece; text-align: center; font-family: arial; font-size: 48px; font-weight: bold; letter-spacing: -4px; cursor: pointer; display: block; position: fixed; top: 50%; margin-top: -100px; margin-left: 5% auto; margin-right: 5% auto; left: 0; right: 0;">PERFORMANCE<br>WILL BEGIN AT<br>9:30</p>
+<p id="fin" style="color: #ffcece; text-align: center; font-family: arial; font-size: 48px; font-weight: bold; letter-spacing: -4px; cursor: pointer; display: none; position: fixed; top: 50%; margin-top: -100px; margin-left: 5% auto; margin-right: 5% auto; left: 0; right: 0;">PERFORMANCE<br>HAS ENDED.<br>THANK YOU FOR JOINING.</p>
 
 <script>
 
 var doc = document.documentElement;
 var video = document.getElementById("video");
+var stream = document.getElementById("stream");
+var join = document.getElementById("join");
+var info = document.getElementById("info");
+var fin = document.getElementById("fin");
+var joined = false;
 
 function openFullscreen() {
   if (doc.requestFullscreen) {
@@ -42,17 +37,46 @@ function openFullscreen() {
   }
 }
 
-document.addEventListener("keyup", function(event) {
-  if (event.keyCode === 32) {
-    event.preventDefault();
-    video.play();
-    video.width = screen.width;
-    video.height = screen.height;
-    doc.style.backgroundColor = "black";
-    openFullscreen();
-  }
-});
+function start() {
+  video.play();
+  video.width = screen.width;
+  video.height = screen.height;
+  stream.style.display = "block";
+  join.style.display = "none";
+  openFullscreen();
+  joined = true;
+}
 
+function startTime() {
+  var today = new Date();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var d = today.getDate();
+  var started = (h == 12 && m >= 32 && d == 10);
+  var finished = (h == 21 && m >= 50 && d == 10);
+  //var finished = true;
+  if (finished) {
+    video.pause();
+    stream.style.display = "none";
+    join.style.display = "none";
+    info.style.display = "none";
+    var t2 = setTimeout(finish, 3000);
+  } else {
+    if (started) {
+      if (!joined) {
+        join.style.display = "block";
+        info.style.display = "none";
+      }
+    }
+  var t = setTimeout(startTime, 4000);
+  }
+}
+
+function finish() {
+  fin.style.display = "block";
+}
+
+startTime();
 </script>
 
 </body>
