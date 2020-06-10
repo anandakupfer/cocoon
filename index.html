@@ -61,8 +61,8 @@ function startTime() {
   var m = today.getMinutes();
   var d = today.getDate();
   var started = (h == 21 && m >= 30 && d == 10);
-  var finished = (h == 21 && m >= 50 && d == 10);
-  //var finished = true;
+  //var finished = (h == 21 && m >= 50 && d == 10);
+  var finished = true;
   if (finished) {
     video.pause();
     stream.style.display = "none";
