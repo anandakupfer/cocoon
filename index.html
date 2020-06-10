@@ -52,8 +52,8 @@ function startTime() {
   var h = today.getHours();
   var m = today.getMinutes();
   var d = today.getDate();
-  var started = (h == 12 && m >= 58 && d == 10);
-  var finished = (h == 21 && m >= 59 && d == 10);
+  var started = (h == 21 && m >= 30 && d == 10);
+  var finished = (h == 21 && m >= 50 && d == 10);
   //var finished = true;
   if (finished) {
     video.pause();
