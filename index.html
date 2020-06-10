@@ -6,7 +6,7 @@
 <body style="background-color: black">
 
 <div id="stream" style="display: none">
-<video id="video" width="100" height="100" loop style="position: fixed; left:0; bottom: 0; top: 0; margin:auto">
+<video id="video" width="100%" height="100" playsinline webkit-playsinline loop style="position: fixed; left:0; bottom: 0; top: 0; margin:auto">
   <source src="livestream.m4v" type="video/mp4">
 </video>
 </div>
@@ -52,8 +52,8 @@ function startTime() {
   var h = today.getHours();
   var m = today.getMinutes();
   var d = today.getDate();
-  var started = (h == 12 && m >= 32 && d == 10);
-  var finished = (h == 21 && m >= 50 && d == 10);
+  var started = (h == 12 && m >= 58 && d == 10);
+  var finished = (h == 21 && m >= 59 && d == 10);
   //var finished = true;
   if (finished) {
     video.pause();
