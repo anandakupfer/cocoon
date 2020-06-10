@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <style>
+  html{
+     background-color: #000000;
+   }
+  </style>
 </head>
 
 <body style="background-color: black">
@@ -75,13 +80,51 @@ function startTime() {
   }
 }
 
-doc.onfullscreenchange = function (event) {
-  if (document.fullscreenElement) {
+document.addEventListener("fullscreenchange", function() {
+  if (isFullscreen()) {
     full.style.display = "none";
+    console.log("full");
   } else {
     full.style.display = "block";
+    console.log("not");
   }
-};
+});
+
+document.addEventListener("mozfullscreenchange", function() {
+  if (isFullscreen()) {
+    full.style.display = "none";
+    console.log("full");
+  } else {
+    full.style.display = "block";
+    console.log("not");
+  }
+});
+
+document.addEventListener("webkitfullscreenchange", function() {
+  if (isFullscreen()) {
+    full.style.display = "none";
+    console.log("full");
+  } else {
+    full.style.display = "block";
+    console.log("not");
+  }
+});
+
+document.addEventListener("msfullscreenchange", function() {
+  if (isFullscreen()) {
+    full.style.display = "none";
+    console.log("full");
+  } else {
+    full.style.display = "block";
+    console.log("not");
+  }
+});
+
+isFullscreen = function() {
+  return document.fullscreenElement
+      || document.webkitFullscreenElement
+      || document.mozFullScreenElement;
+}
 
 function finish() {
   fin.style.display = "block";
